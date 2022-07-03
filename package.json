@@ -1,0 +1,31 @@
+{
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.18",
+    "sequelize": "^6.21.2"
+  },
+  "name": "e-commerce-back-end",
+  "description": "building the back end for an e-commerce site. configure a working Express.js API to use Sequelize to interact with a MySQL database.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "seed": "node seeds/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amalidi/e-commerce-back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amalidi/e-commerce-back-end/issues"
+  },
+  "homepage": "https://github.com/Amalidi/e-commerce-back-end#readme"
+}
