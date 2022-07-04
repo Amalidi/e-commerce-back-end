@@ -60,8 +60,32 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", (req, res) => {
-  // update a category by its `id` value
+router.put("/:id", async (req, res) => {
+  try {
+    // update a category by its `id` value
+    const { newCategoryName } = req.body;
+    const { id } = req.params;
+
+    const updateCategory = await Category.update(
+      { newCategoryName },
+      { where: { id } }
+    );
+
+    // if false return an error
+    if (updateCategory[0] == 0) {
+      return res.status(404).json({
+        error: "Category is undefined",
+      });
+    }
+
+    return res.status(200).json({
+      message: "successfully updated category",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: "Sorry, your category couldn't be updated.",
+    });
+  }
 });
 
 router.delete("/:id", (req, res) => {
