@@ -66,6 +66,7 @@ router.put("/:id", async (req, res) => {
     const { newCategoryName } = req.body;
     const { id } = req.params;
 
+    // update in db
     const updateCategory = await Category.update(
       { newCategoryName },
       { where: { id } }
@@ -78,18 +79,28 @@ router.put("/:id", async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      message: "successfully updated category",
-    });
+    return res.status(200).json({ message: "successfully updated category" });
   } catch (error) {
-    return res.status(500).json({
-      error: "Sorry, your category couldn't be updated.",
-    });
+    return res
+      .status(500)
+      .json({ error: "Sorry, your category couldn't be updated." });
   }
 });
 
-router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
+router.delete("/:id", async (req, res) => {
+  try {
+    // delete a category by its `id` value
+    const deleteCategory = await Category.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return res.status(200).json({ message: "Category deleted successfully" });
+  } catch (error) {
+    return res.status(500).json({
+      error: "Failed to delete category. Please try again later.",
+    });
+  }
 });
 
 module.exports = router;
