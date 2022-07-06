@@ -63,60 +63,18 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
-  try {
-    // create a new category
-    const { category_name } = req.body;
-
-    const newCategory = await Category.create({
-      category_name,
-    });
-    res
-      .status(200)
-      .json({ message: "A new category has been successfully created." });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Failed to create category" });
-  }
-});
-
-router.post("/", async (req, res) => {
-  try {
-    const { category_name } = req.body;
-    const newCategory = await Category.create({
-      category_name,
-    });
-    res
-      .status(200)
-      .json({ message: "A new category has been successfully created." });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({ error: "Failed to create category" });
-  }
-});
-
 router.put("/:id", async (req, res) => {
   try {
     // update a category by its `id` value
-    const { newCategoryName } = req.body;
     const { id } = req.params;
-
-    // update in db
-    const updateCategory = await Category.update(
-      { newCategoryName },
+    const { category_name } = req.body;
+    const category = await Category.update(
+      { category_name },
       { where: { id } }
     );
-
-    // if false return an error
-    if (updateCategory[0] == 0) {
-      return res.status(404).json({
-        error: "Category is undefined",
-      });
-    }
-
-    return res.status(200).json({ message: "successfully updated category" });
+    res.status(200).json({ message: "Successfully updated category." });
   } catch (error) {
-    return res
+    res
       .status(500)
       .json({ error: "Sorry, your category couldn't be updated." });
   }
