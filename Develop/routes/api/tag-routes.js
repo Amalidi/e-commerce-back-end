@@ -42,8 +42,28 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   // create a new tag
+  try {
+    const { tag_name } = req.body;
+
+    const newTag = await Tag.create({ tag_name });
+
+    if (!newTag) {
+      res
+        .status(400)
+        .json({ message: "No tag with this id. Please provide a tag name." });
+    }
+
+    res
+      .status(200)
+      .json({ message: "A new tag has been successfully created." });
+  } catch (error) {
+    console.error(error.message);
+    res
+      .status(500)
+      .json({ error: "Failed to create tag. Please try again later." });
+  }
 });
 
 router.put("/:id", (req, res) => {
