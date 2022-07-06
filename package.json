@@ -12,7 +12,6 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Develop/server.js",
     "dev": "nodemon Develop/server.js",
     "seed": "node Develop/seeds/index.js"
