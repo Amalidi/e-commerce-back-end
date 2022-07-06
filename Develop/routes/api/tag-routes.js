@@ -51,7 +51,7 @@ router.post("/", async (req, res) => {
 
     if (!newTag) {
       res
-        .status(400)
+        .status(404)
         .json({ message: "No tag with this id. Please provide a tag name." });
     }
 
@@ -68,6 +68,28 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
+});
+
+router.put("/:id", async (req, res) => {
+  // update a tag's name by its `id` value
+  try {
+    // declare the tagname and id separately
+    const { tag_name } = req.body;
+    const { id } = req.params;
+
+    const updateTagName = await Tag.update({ tag_name }, { where: { id } });
+
+    if (!updateTagName) {
+      res
+        .status(404)
+        .json({ message: "No tag found. Please provide a correct tag name." });
+    }
+    res.status(200).json({ message: "Successfully updated tag." });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Failed to update tag. Please try again later" });
+  }
 });
 
 router.delete("/:id", (req, res) => {
