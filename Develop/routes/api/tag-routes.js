@@ -22,9 +22,24 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+router.get("/:id", async (req, res) => {
+  try {
+    // find a single tag by its `id`
+    const { id } = req.params;
+    // be sure to include its associated Product data
+    const singleTag = await Tag.findByPk(id, {
+      include: [
+        { model: Product, attributes: ["product_name", "price", "stock"] },
+      ],
+    });
+    if (!singleTag) {
+      res.status(404).json({ message: "No tag found with this id." });
+    }
+    res.status(200).json(singleTag);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Failed to get tag" });
+  }
 });
 
 router.post("/", (req, res) => {
