@@ -16,7 +16,7 @@ app.use(routes);
 
 const init = async () => {
   try {
-    await connection.sync();
+    await connection.sync({ force: false });
 
     app.listen(PORT, () => {
       console.log(`Server running on http://localhost:${PORT}`);

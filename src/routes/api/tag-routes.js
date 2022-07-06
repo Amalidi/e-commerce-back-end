@@ -100,6 +100,11 @@ router.delete("/:id", async (req, res) => {
     if (!deleteTag) {
       res.status(404).json({ error: "Tag doesn't exist" });
     }
+
+    res.status(200).json({ message: "Successfully deleted tag." });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete tag" });
+  }
 });
 
 module.exports = router;

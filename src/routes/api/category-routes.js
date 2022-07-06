@@ -47,16 +47,51 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // create a new category
   try {
-    const newCategory = await Category.create(req.body);
-    return res.status(200).json({
-      message: "A new category has been successfully created.",
-      category: newCategory,
+    // create a new category
+    const { category_name } = req.body;
+
+    const newCategory = await Category.create({
+      category_name,
     });
+    res
+      .status(200)
+      .json({ message: "A new category has been successfully created." });
   } catch (error) {
-    console.log(`[ERROR]: Failed to create category. | ${error.message}`);
-    return res.status(500).json({ success: false, error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Failed to create category" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    // create a new category
+    const { category_name } = req.body;
+
+    const newCategory = await Category.create({
+      category_name,
+    });
+    res
+      .status(200)
+      .json({ message: "A new category has been successfully created." });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Failed to create category" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const { category_name } = req.body;
+    const newCategory = await Category.create({
+      category_name,
+    });
+    res
+      .status(200)
+      .json({ message: "A new category has been successfully created." });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: "Failed to create category" });
   }
 });
 
